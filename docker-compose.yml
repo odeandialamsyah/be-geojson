@@ -1,0 +1,33 @@
+services:
+  app:
+    build: .
+    container_name: gis-app
+    restart: always
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mongo
+    env_file:
+      - .env
+    environment:
+      MONGO_URI: "mongodb://mongo:27017/gisdb"
+    networks:
+      - gis_network
+
+  mongo:
+    image: mongo:4.4
+    container_name: gis-mongo
+    restart: always
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+    networks:
+      - gis_network
+
+volumes:
+  mongo_data:
+
+networks:
+  gis_network:
+    driver: bridge
