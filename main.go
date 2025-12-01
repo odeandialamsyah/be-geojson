@@ -2,6 +2,7 @@ package main
 
 import (
 	"be-geojson/config"
+	"be-geojson/controllers"
 	routes "be-geojson/route"
 
 	"github.com/gofiber/fiber/v2"
@@ -18,6 +19,9 @@ func main() {
 	}))
 
 	config.ConnectMongo()
+
+	controllers.InitMarkerCollection()
+	controllers.InitAreaCollection()
 
 	routes.SetupRoutes(app)
 
